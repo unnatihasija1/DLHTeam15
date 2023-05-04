@@ -1,4 +1,4 @@
-Reproducability:
+Reproducibility:
 1. Dependencies:
 To reproduce the results or to be able to execute the G-Bert code, we were missing some libraries. We created a list of those libraries in requirements.txt.
 You may install it using:
