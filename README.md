@@ -57,7 +57,7 @@ For GCNConv: python run_gbert.py --model_name GBert-predict-qGCN --use_pretrain 
 The pre-trained models based on GTN and GCN are placed in the GitHub repository.
 
 **To test our feasibility study approach:**
-1. Execute the Jupyter Notebook: GGPT2.ipynb. The pre-trained GPT2 model is a part of this GitHub repository.
+1. After installing the requirements, execute the Jupyter Notebook: **GGPT2.ipynb**. The pre-trained GPT2 model is a part of this GitHub repository.
 
 ## 4. Pre-training and pre-trained models:
 
