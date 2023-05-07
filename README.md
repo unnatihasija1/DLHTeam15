@@ -34,10 +34,10 @@ $ pip install -r requirements.txt
 
 ## 2. Training code:
 
-The dataset is split into training, validation and testing set in ratio of 0.6,0.2,0.2 respectively. The split is done in EDA.ipynb file train-id.txt, eval-id.txt, test-id.txt and the files are stored accordingly.
-The script for training the G-Bert model is provided in run_alternative.sh bash script. The script basically executes the the python file run_pretraining.py to pretrain the G-Bert model on EHR Dataset. Then it executes the G-Bert prediction on this pre-trained model. The script alternates the pre-training with 5 epochs and fine-tuning procedure with 5 epochs for 15 times to stabilize the training procedure.
-For our project, we used the same procedure of executing pre-training with and without graphs and with and without pre-training.
-We also executed the script after changing the GAT model to GCN and GTN to test our ablations.
+The dataset was already split into training, validation and testing set in ratio of 0.6,0.2,0.2 respectively. The split is done in EDA.ipynb file train-id.txt, eval-id.txt, test-id.txt and the files are stored accordingly.
+The script for training the G-Bert model is provided in run_alternative.sh bash script. The script executes the the python file run_pretraining.py to pretrain the G-Bert model on EHR Dataset. Then it executes the G-Bert prediction on this pre-trained model. The script alternates the pre-training with 5 epochs and fine-tuning procedure with 5 epochs for 15 times to stabilize the training procedure.
+For our project, we used the same procedure of executing pre-training with and without graphs and with and without pre-training on EHR Dataset.
+We also executed the script after changing the Graph model from GAT to GCN(Graph Convolution Network) and GTN(Graph Transform Network) to test our ablations.
 
 ## 3. Evaluation code 
 
@@ -59,6 +59,7 @@ The pre-trained models based on GTN and GCN are placed in the GitHub repository.
 **To test our feasibility study approach:**
 1. After installing the requirements, execute the Jupyter Notebook: **GGPT2.ipynb**. The pre-trained GPT2 model is a part of this GitHub repository.
 
+Please Note: Information on other ablations can be found in the paper
 ## 4. Pre-training and pre-trained models:
 
 In the run_pretraining.py, BERT model is pre-trained on the EHRDataset (both single-visit EHR sequences and multi-visit EHR sequences). 
