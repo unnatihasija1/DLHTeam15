@@ -38,6 +38,15 @@ We also executed the script after changing the GAT model to GCN and GTN to test 
 We evaluated the results by executing:
 python run_gbert.py --model_name GBert-predict --use_pretrain --pretrain_dir ../saved/GBert-predict --graph
 
+To test our ablations:
+1. Comment the code for GATConv in graph_models.py and uncomment the code for GTNConv or GCNConv.
+2. Execute the command:
+python run_gbert.py --model_name GBert-predict-qGTN1 --use_pretrain --pretrain_dir ../saved/GBert-predict-qGTN1 --graph
+python run_gbert.py --model_name GBert-predict-qGCN --use_pretrain --pretrain_dir ../saved/GBert-predict-qGCN --graph
+
+To test our feasibility study approach:
+1. Execute the Jupyter Notebook: GGPT2.ipynb.
+
 ## 4. Pre-training and pre-trained models:
 
 In the run_pretraining.py, BERT model is pre-trained on the EHRDataset (both single-visit EHR sequences and multi-visit EHR sequences). 
