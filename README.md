@@ -38,7 +38,7 @@ We also executed the script after changing the GAT model to GCN and GTN to test 
 We evaluated the original results by executing:
 python run_gbert.py --model_name GBert-predict --use_pretrain --pretrain_dir ../saved/GBert-predict --graph
 
-To test our ablations:
+To test our **main** ablations:
 1. Clone the git repository.
 2. Install the requirements: pip install -r requirements.txt
 3. Comment the code for GATConv in graph_models.py and uncomment the code for GTNConv or GCNConv.
