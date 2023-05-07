@@ -59,18 +59,14 @@ We started with using local CPU based machines(laptops) and later switched to Az
 | GAMENet	      |       0.3497  |	  0.4561      |    0.2320      |
 | GAMENet D-      |       0.3596  |	  0.4326      |    0.2399      |
 | RETAIN 	      |       0.3127  |	  0.4606      |    0.2013      |
-   
-   Model	        F1 score	  PR-AUC	Jaccard Score
-G-Bert 	            0.6065 	  0.6906         0.4478   
-G-Bert G-	         0.6038	  0.6824	        0.4452    
-G-Bert G- P-			
-G-Bert P-			
-GAMENet			
-GAMENet D-			
+   		
 
 ## Ablations: 
   
-<insert the table here>
+|    Model        |    F1 score   |    PR AUC     |  Jaccard Score |
+|-----------------|-------------- |---------------|----------------|
+|Aggr_out from sum to mean| 0.5710 |0.6554|0.4096|
+
 
 ## New Approach: GGPT
 
