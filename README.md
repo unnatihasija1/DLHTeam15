@@ -18,6 +18,11 @@ data. For our project, we reproduced this G-Bert, it's original ablations and ou
 
 As an extension to G-Bert and for our feasibility study, we propose a new model: **GGPT** which combines GNN with GPT2 model. We believe, using a Graph Neural Network (GNN) with GPT-2 for medical recommendations could also be a promising approach. GPT-2 is a powerful language model that can generate coherent and fluent text based on the context provided and GNNs can capture the relationships between different medical concepts and entities, and leverage this information for better recommendation generation.
 
+## Feasibility Study: GGPT
+
+Since GPT-2 model is trained on a larger corpus of general text data, which also includes a broad range of medical knowledge. The idea to train GPT-2 model also on EHRDataset for single visit and may prove to be a promising approach for medicial recommendations. GPT-2 has a larger model size and higher number of parameters: 1.5 billion, which may allow it to capture more complex relationships between medical concepts and generate accurate recommendations. GPT-2 generates fluent and coherent text due to its architecture, which includes an autoregressive language modeling component. This could be advantageous for generating natural-sounding medical recommendations that are more likely to be understood by patients and healthcare professionals.
+
+<more details on GGPT implementation, diagram from PPT>
 
 ## Steps to replicate/Reproducibility:
 
@@ -39,7 +44,7 @@ We also executed the script after changing the GAT model to GCN and GTN to test 
 We evaluated the original results by executing:
 python run_gbert.py --model_name GBert-predict --use_pretrain --pretrain_dir ../saved/GBert-predict --graph
 
-To test our **main** ablations:
+**To test our main ablations:**
 1. Clone the git repository.
 2. Install the requirements: pip install -r requirements.txt
 3. Comment the code for GATConv in graph_models.py and uncomment the code for GTNConv or GCNConv.
@@ -51,7 +56,7 @@ python run_gbert.py --model_name GBert-predict-qGCN --use_pretrain --pretrain_di
 
 The pre-trained models based on GTN and GCN are placed in the GitHub repository.
 
-To test our feasibility study approach:
+**To test our feasibility study approach:**
 1. Execute the Jupyter Notebook: GGPT2.ipynb. The pre-trained GPT2 model is a part of this GitHub repository.
 
 ## 4. Pre-training and pre-trained models:
@@ -94,11 +99,7 @@ We attempted the below ablations:
 |Softmax->Sigmoid|0.4808|0.5810|0.3253|
 |Leaky_relu->tanh(Mish)|0.5904|0.6722|0.4298|
 
-## Feasibility Study: GGPT
 
-Since GPT-2 model is trained on a larger corpus of general text data, which also includes a broad range of medical knowledge. The idea to train GPT-2 model also on EHRDataset for single visit and may prove to be a promising approach for medicial recommendations. GPT-2 has a larger model size and higher number of parameters: 1.5 billion, which may allow it to capture more complex relationships between medical concepts and generate accurate recommendations. GPT-2 generates fluent and coherent text due to its architecture, which includes an autoregressive language modeling component. This could be advantageous for generating natural-sounding medical recommendations that are more likely to be understood by patients and healthcare professionals.
-
-<more details on GGPT implementation, diagram from PPT>
 
 # Citation
 @article{shang2019pre,
