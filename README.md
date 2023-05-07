@@ -45,6 +45,7 @@ To test our ablations:
 4. Execute the command:
 
 python run_gbert.py --model_name GBert-predict-qGTN1 --use_pretrain --pretrain_dir ../saved/GBert-predict-qGTN1 --graph
+
 python run_gbert.py --model_name GBert-predict-qGCN --use_pretrain --pretrain_dir ../saved/GBert-predict-qGCN --graph
 
 The pre-trained models based on GTN and GCN are placed in the GitHub repository.
