@@ -10,10 +10,11 @@ Unnati Hasija : uhasija2@illinois.edu
 
 ## Introduction
 
-**G-Bert** combines Graph Neural Networks and thr well known pre-trained model: BERT (Bidirectional Encoder Representations from Transformers) for 
+The aim of this project is to understand, replicate and extend the paper Pre-training of Graph Augmented Transformers for Medication Recommendation.
+**G-Bert** combines Graph Neural Networks and the well known pre-trained model: BERT (Bidirectional Encoder Representations from Transformers) for 
 medical code representation and medication recommendation. Graph neural networks (GNNs) are used to represent the structure information of medical 
 codes from a medical ontology. Then this GNN representation is integrated to a transformer-based visit encoder and pre-train it on single-visit EHR 
-data. For our project, we reproduced this G-Bert, it's original ablations and our new ablations. 
+data. For our project, we reproduced this G-Bert, it's original ablations and our new ablations. This repository contains a modified version of the orginal work, done in order to carry out and extend the experiments.
 
 As an extension to G-Bert and for our feasibility study, we propose a new model: **GGPT** which combines GNN with GPT2 model. We believe, using a Graph Neural Network (GNN) with GPT-2 for medical recommendations could also be a promising approach. GPT-2 is a powerful language model that can generate coherent and fluent text based on the context provided and GNNs can capture the relationships between different medical concepts and entities, and leverage this information for better recommendation generation.
 
@@ -68,7 +69,8 @@ We started with using local CPU based machines(laptops) and later switched to Az
 
 |    Model        |    F1 score   |    PR AUC     |  Jaccard Score |
 |-----------------|-------------- |---------------|----------------|
-| G-Bert 	      |       0.6065  |	  0.6906      |    0.4478      |
+| G-Bert(Original Paper)|0.6152|	  0.6960      |    0.4565      |
+| G-Bert(Our replication)	      |       0.6065  |	  0.6906      |    0.4478      |
 | G-Bert G-	      |       0.6038  |	  0.6906      |    0.4478      |
 | G-Bert G-P-     |       0.5528  |	  0.6366      |    0.3908      |
 | G-Bert P-	      |       0.5351  |	  0.6206      |    0.3726      |
