@@ -66,7 +66,14 @@ We started with using local CPU based machines(laptops) and later switched to Az
 |    Model        |    F1 score   |    PR AUC     |  Jaccard Score |
 |-----------------|-------------- |---------------|----------------|
 |Aggr_out from sum to mean| 0.5710 |0.6554|0.4096|
-
+|Aggr_out from sum to max|0.5550|0.6318|0.3942|
+|Attention heads (4->8)|0.5245|0.6201|0.3644|
+|GATConv to GCNConv|0.5438|0.6296|0.3824|
+|GATConv to GTNLayer Attn heads = 4|0.6063|0.6896|0.4463|
+|GATConv to GTNLayer Attn heads = 6|0.6117|0.6945|0.4534|
+|Leaky_relu->sigmoid|0.5125|0.5464|0.3533|
+|Softmax->Sigmoid|0.4808|0.5810|0.3253|
+|Leaky_relu->tanh(Mish)|0.5904|0.6722|0.4298|
 
 ## New Approach: GGPT
 
