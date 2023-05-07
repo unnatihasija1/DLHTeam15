@@ -50,6 +50,16 @@ We started with using local CPU based machines(laptops) and later switched to Az
 
 ## Baselines:
 <insert table here>
+|    Model        |    F1 score   |    PR AUC     |  Jaccard Score |
+| -------------   | ------------- | ------------- | ---------------|
+| G-Bert 	      |       0.6065  |	  0.6906      |    0.4478      |
+| G-Bert G-	      |       0.6038  |	  0.6906      |    0.4478      |
+| G-Bert G-P-     |       0.5528  |	  0.6366      |    0.3908      |
+| G-Bert P-	      |       0.5351  |	  0.6206      |    0.3726      |
+| GAMENet	      |       0.3497  |	  0.4561      |    0.2320      |
+| GAMENet D-      |       0.3596  |	  0.4326      |    0.2399      |
+| RETAIN 	      |       0.3127  |	  0.4606      |    0.2013      |
+   
    Model	        F1 score	  PR-AUC	Jaccard Score
 G-Bert 	            0.6065 	  0.6906         0.4478   
 G-Bert G-	         0.6038	  0.6824	        0.4452    
