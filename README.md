@@ -52,7 +52,7 @@ python run_gbert.py --model_name GBert-predict-qGCN --use_pretrain --pretrain_di
 The pre-trained models based on GTN and GCN are placed in the GitHub repository.
 
 To test our feasibility study approach:
-1. Execute the Jupyter Notebook: GGPT2.ipynb.
+1. Execute the Jupyter Notebook: GGPT2.ipynb. The pre-trained GPT2 model is a part of this GitHub repository.
 
 ## 4. Pre-training and pre-trained models:
 
@@ -96,7 +96,7 @@ We attempted the below ablations:
 
 ## Feasibility Study: GGPT
 
-Since GPT-2 is trained on a large corpus of general text data, which also includes a broad range of medical knowledge. The idea is, GPT-2 also to be trained on EHRDataset for single visit and may prove to be a promising approach for medicial recommendations. GPT-2 has a large model size and high number of parameters: 1.5 billion, which may allow it to capture more complex relationships between medical concepts and generate accurate recommendations. GPT-2 generates fluent and coherent text due to its architecture, which includes an autoregressive language modeling component. This could be advantageous for generating natural-sounding medical recommendations that are more likely to be understood by patients and healthcare professionals.
+Since GPT-2 model is trained on a larger corpus of general text data, which also includes a broad range of medical knowledge. The idea to train GPT-2 model also on EHRDataset for single visit and may prove to be a promising approach for medicial recommendations. GPT-2 has a larger model size and higher number of parameters: 1.5 billion, which may allow it to capture more complex relationships between medical concepts and generate accurate recommendations. GPT-2 generates fluent and coherent text due to its architecture, which includes an autoregressive language modeling component. This could be advantageous for generating natural-sounding medical recommendations that are more likely to be understood by patients and healthcare professionals.
 
 <more details on GGPT implementation, diagram from PPT>
 
