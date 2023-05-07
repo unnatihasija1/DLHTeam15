@@ -50,9 +50,9 @@ python run_gbert.py --model_name GBert-predict --use_pretrain --pretrain_dir ../
 3. Comment the code for GATConv in graph_models.py and uncomment the code for GTNConv or GCNConv.
 4. Execute the corresponding command:
 
-python run_gbert.py --model_name GBert-predict-qGTN1 --use_pretrain --pretrain_dir ../saved/GBert-predict-qGTN1 --graph
+For GTNConv: python run_gbert.py --model_name GBert-predict-qGTN1 --use_pretrain --pretrain_dir ../saved/GBert-predict-qGTN1 --graph
 
-python run_gbert.py --model_name GBert-predict-qGCN --use_pretrain --pretrain_dir ../saved/GBert-predict-qGCN --graph
+For GCNConv: python run_gbert.py --model_name GBert-predict-qGCN --use_pretrain --pretrain_dir ../saved/GBert-predict-qGCN --graph
 
 The pre-trained models based on GTN and GCN are placed in the GitHub repository.
 
