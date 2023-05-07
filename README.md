@@ -35,12 +35,15 @@ We also executed the script after changing the GAT model to GCN and GTN to test 
 
 ## 3. Evaluation code 
 
-We evaluated the results by executing:
+We evaluated the original results by executing:
 python run_gbert.py --model_name GBert-predict --use_pretrain --pretrain_dir ../saved/GBert-predict --graph
 
 To test our ablations:
 1. Comment the code for GATConv in graph_models.py and uncomment the code for GTNConv or GCNConv.
 2. Execute the command:
+
+The pre-trained models based on GTN and GCN are placed in the GitHub repository.
+
 python run_gbert.py --model_name GBert-predict-qGTN1 --use_pretrain --pretrain_dir ../saved/GBert-predict-qGTN1 --graph
 python run_gbert.py --model_name GBert-predict-qGCN --use_pretrain --pretrain_dir ../saved/GBert-predict-qGCN --graph
 
@@ -51,6 +54,8 @@ To test our feasibility study approach:
 
 In the run_pretraining.py, BERT model is pre-trained on the EHRDataset (both single-visit EHR sequences and multi-visit EHR sequences). 
 In here, the 15% of the tokens are replaced by [MASK] and [CLS] is the first token of each sentence. The pre-training code creates a model with the config specified in config.py. In the original GitHub repository, a pre-trained model was already shared, we used that to evaluate the claimed performance.
+
+To train the model with our ablations in place, we changed the code in graph_model.py and used the same steps to pre-train using run_pretraining.py and later testing using run_gbert.py. We used the train mechanism as used by the authors. 
 
 ## Baselines and ablations:
 
