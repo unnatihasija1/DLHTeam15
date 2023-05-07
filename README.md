@@ -73,7 +73,9 @@ We started with using local CPU based machines(laptops) and later switched to Az
 ## Baselines:
 To prove the claims in the paper:
 1. G-Bert performs better with graphs and pre-training 
-2. G-Bert performs better than GAMENet and RETAIN.N.
+2. G-Bert performs better than GAMENet and RETAIN.
+
+we ran the following baselines:
 
 |    Model        |    F1 score   |    PR AUC     |  Jaccard Score |
 |-----------------|-------------- |---------------|----------------|
