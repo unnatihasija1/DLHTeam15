@@ -71,6 +71,9 @@ To prove the claims and ablations in the original paper and to test our ablation
 We started with using local CPU based machines(laptops) and later switched to Azure GPU VM: - 1 x NVIDIA Tesla K80: Standard_NC6 (6 cores, 56 GB RAM, 380 GB disk).
 
 ## Baselines:
+To prove the claims in the paper:
+1. G-Bert performs better with graphs and pre-training 
+2. G-Bert performs better than GAMENet and RETAIN.N.
 
 |    Model        |    F1 score   |    PR AUC     |  Jaccard Score |
 |-----------------|-------------- |---------------|----------------|
