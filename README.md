@@ -49,9 +49,9 @@ To prove the claims and ablations in the original paper and to test our ablation
 We started with using local CPU based machines(laptops) and later switched to Azure GPU VM: - 1 x NVIDIA Tesla K80: Standard_NC6 (6 cores, 56 GB RAM, 380 GB disk).
 
 ## Baselines:
-<insert table here>
+
 |    Model        |    F1 score   |    PR AUC     |  Jaccard Score |
-| -------------   | ------------- | ------------- | ---------------|
+|-----------------|-------------- |---------------|----------------|
 | G-Bert 	      |       0.6065  |	  0.6906      |    0.4478      |
 | G-Bert G-	      |       0.6038  |	  0.6906      |    0.4478      |
 | G-Bert G-P-     |       0.5528  |	  0.6366      |    0.3908      |
