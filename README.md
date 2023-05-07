@@ -58,7 +58,7 @@ To test our feasibility study approach:
 
 In the run_pretraining.py, BERT model is pre-trained on the EHRDataset (both single-visit EHR sequences and multi-visit EHR sequences). 
 In here, the 15% of the tokens are replaced by [MASK] and [CLS] is the first token of each sentence. The pre-training code creates a model with the config specified in config.py. 
-To train the model with our ablations in place, we changed the code in graph_model.py and used the same steps to pre-train using run_pretraining.py and later testing using run_gbert.py. We used the train mechanism as used by the authors. 
+To train the model with our ablations in place, we added the code in graph_model.py and used the same steps to pre-train using run_pretraining.py and later testing using run_gbert.py. We used the train mechanism as used by the authors. 
 
 ## Baselines and ablations:
 
@@ -94,10 +94,9 @@ We attempted the below ablations:
 |Softmax->Sigmoid|0.4808|0.5810|0.3253|
 |Leaky_relu->tanh(Mish)|0.5904|0.6722|0.4298|
 
-## New Approach: GGPT
+## Feasibility Study: GGPT
 
-Since GPT-2 is trained on a large corpus of general text data, which also includes a broad range of medical knowledge. The idea is, GPT-2 also to be trained on 
-EHRDataset for single visit and may prove to be a promising approach for medicial recommendations. GPT-2 has a large model size and high number of parameters: 1.5 billion, which may allow it to capture more complex relationships between medical concepts and generate accurate recommendations. GPT-2 generates fluent and coherent text due to its architecture, which includes an autoregressive language modeling component. This could be advantageous for generating natural-sounding medical recommendations that are more likely to be understood by patients and healthcare professionals.
+Since GPT-2 is trained on a large corpus of general text data, which also includes a broad range of medical knowledge. The idea is, GPT-2 also to be trained on EHRDataset for single visit and may prove to be a promising approach for medicial recommendations. GPT-2 has a large model size and high number of parameters: 1.5 billion, which may allow it to capture more complex relationships between medical concepts and generate accurate recommendations. GPT-2 generates fluent and coherent text due to its architecture, which includes an autoregressive language modeling component. This could be advantageous for generating natural-sounding medical recommendations that are more likely to be understood by patients and healthcare professionals.
 
 <more details on GGPT implementation, diagram from PPT>
 
