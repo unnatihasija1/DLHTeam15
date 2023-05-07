@@ -99,7 +99,7 @@ We attempted the below ablations:
 |Softmax->Sigmoid|0.4808|0.5810|0.3253|
 |Leaky_relu->tanh(Mish)|0.5904|0.6722|0.4298|
 
-
+For more detailed information on the hyperparameter settings and the training process, please refer to the UIUC_DLH_Spring23.pdf file included in the repository. This report provides a comprehensive overview of our experimental setup and analysis of the results.
 
 # Citation
 @article{shang2019pre,
