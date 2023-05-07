@@ -1,6 +1,6 @@
-## CS 598 Deep Learning for Healthcare: Final Project: 
+## CS 598 Deep Learning for Healthcare:
 
-Reproducibility Project: Pre-training of Graph Augmented Transformers for Medication Recommendation
+Reproducibility Project: Pre-training of Graph Augmented Transformers for Medication Recommendation.
 
 ## Project Team: 
 
