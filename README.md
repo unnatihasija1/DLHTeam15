@@ -15,7 +15,7 @@ medical code representation and medication recommendation. Graph neural networks
 codes from a medical ontology. Then this GNN representation is integrated to a transformer-based visit encoder and pre-train it on single-visit EHR 
 data. For our project, we reproduced this G-Bert, it's original ablations and our new ablations. 
 
-As an extension to G-Bert and for our feasibility study, we propose a new model: GGPT which combines GNN with GPT2 model. We believe, using a Graph Neural Network (GNN) with GPT-2 for medical recommendations could also be a promising approach. GPT-2 is a powerful language model that can generate coherent and fluent text based on the context provided and GNNs can capture the relationships between different medical concepts and entities, and leverage this information for better recommendation generation.
+As an extension to G-Bert and for our feasibility study, we propose a new model: ##GGPT## which combines GNN with GPT2 model. We believe, using a Graph Neural Network (GNN) with GPT-2 for medical recommendations could also be a promising approach. GPT-2 is a powerful language model that can generate coherent and fluent text based on the context provided and GNNs can capture the relationships between different medical concepts and entities, and leverage this information for better recommendation generation.
 
 
 ## Steps to replicate/Reproducibility:
