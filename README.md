@@ -29,8 +29,8 @@ $ pip install -r requirements.txt
 ## 2. Training code:
 
 The dataset is split into training, validation and testing set in ratio of 0.6,0.2,0.2 respectively. The split is done in EDA.ipynb file train-id.txt, eval-id.txt, test-id.txt and the files are stored accordingly.
-The script for training the G-Bert model is provided in run_alternative.sh bash script. The script basically executes the pretraining.py to pretrain the G-Bert on EHR Data. Then it executes the G-Bert prediction on this pre-trained model. The script alternates the pre-training with 5 epochs and fine-tuning procedure with 5 epochs for 15 times to stabilize the training procedure.
-For our project, we adjusted the above script to execute pre-training with and without graphs and with and without pre-training.
+The script for training the G-Bert model is provided in run_alternative.sh bash script. The script basically executes the the python file run_pretraining.py to pretrain the G-Bert model on EHR Dataset. Then it executes the G-Bert prediction on this pre-trained model. The script alternates the pre-training with 5 epochs and fine-tuning procedure with 5 epochs for 15 times to stabilize the training procedure.
+For our project, we used the same procedure of executing pre-training with and without graphs and with and without pre-training.
 We also executed the script after changing the GAT model to GCN and GTN to test our ablations.
 
 ## 3. Evaluation code 
@@ -42,7 +42,7 @@ To test our **main** ablations:
 1. Clone the git repository.
 2. Install the requirements: pip install -r requirements.txt
 3. Comment the code for GATConv in graph_models.py and uncomment the code for GTNConv or GCNConv.
-4. Execute the command:
+4. Execute the corresponding command:
 
 python run_gbert.py --model_name GBert-predict-qGTN1 --use_pretrain --pretrain_dir ../saved/GBert-predict-qGTN1 --graph
 
@@ -56,8 +56,7 @@ To test our feasibility study approach:
 ## 4. Pre-training and pre-trained models:
 
 In the run_pretraining.py, BERT model is pre-trained on the EHRDataset (both single-visit EHR sequences and multi-visit EHR sequences). 
-In here, the 15% of the tokens are replaced by [MASK] and [CLS] is the first token of each sentence. The pre-training code creates a model with the config specified in config.py. In the original GitHub repository, a pre-trained model was already shared, we used that to evaluate the claimed performance.
-
+In here, the 15% of the tokens are replaced by [MASK] and [CLS] is the first token of each sentence. The pre-training code creates a model with the config specified in config.py. 
 To train the model with our ablations in place, we changed the code in graph_model.py and used the same steps to pre-train using run_pretraining.py and later testing using run_gbert.py. We used the train mechanism as used by the authors. 
 
 ## Baselines and ablations:
