@@ -39,13 +39,15 @@ We evaluated the original results by executing:
 python run_gbert.py --model_name GBert-predict --use_pretrain --pretrain_dir ../saved/GBert-predict --graph
 
 To test our ablations:
-1. Comment the code for GATConv in graph_models.py and uncomment the code for GTNConv or GCNConv.
-2. Execute the command:
-
-The pre-trained models based on GTN and GCN are placed in the GitHub repository.
+1. Clone the git repository.
+2. Install the requirements: pip install -r requirements.txt
+3. Comment the code for GATConv in graph_models.py and uncomment the code for GTNConv or GCNConv.
+4. Execute the command:
 
 python run_gbert.py --model_name GBert-predict-qGTN1 --use_pretrain --pretrain_dir ../saved/GBert-predict-qGTN1 --graph
 python run_gbert.py --model_name GBert-predict-qGCN --use_pretrain --pretrain_dir ../saved/GBert-predict-qGCN --graph
+
+The pre-trained models based on GTN and GCN are placed in the GitHub repository.
 
 To test our feasibility study approach:
 1. Execute the Jupyter Notebook: GGPT2.ipynb.
