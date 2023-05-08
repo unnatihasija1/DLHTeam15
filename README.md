@@ -20,7 +20,7 @@ As an extension to G-Bert and for our feasibility study, we propose a new model:
 
 ## Feasibility Study: GGPT
 
-Since GPT-2 model is trained on a larger corpus of general text data, which also includes a broad range of medical knowledge. The idea to train GPT-2 model also on EHRDataset for single visit and may prove to be a promising approach for medicial recommendations. GPT-2 has a larger model size and higher number of parameters: 1.5 billion, which may allow it to capture more complex relationships between medical concepts and generate accurate recommendations. GPT-2 generates fluent and coherent text due to its architecture, which includes an autoregressive language modeling component. This could be advantageous for generating natural-sounding medical recommendations that are more likely to be understood by patients and healthcare professionals.
+GPT-2 model is trained on a larger corpus of general text data, including a broad range of medical knowledge. The idea to train GPT-2 model also on EHRDataset for a single visit and may prove to be a promising approach for medical recommendations. GPT-2 has a larger model size and higher number of parameters: 1.5 billion, which may allow it to capture more complex relationships between medical concepts and generate accurate recommendations. GPT-2 generates fluent and coherent text due to its architecture, which includes an autoregressive language modeling component. This could be advantageous for generating natural-sounding medical recommendations that are more likely to be understood by patients and healthcare professionals.
 
 <more details on GGPT implementation, diagram from PPT>
 
