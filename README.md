@@ -34,10 +34,10 @@ $ pip install -r requirements.txt
 
 ## 2. Training code:
 
-The dataset is split into training, validation and testing set in ratio of 0.6,0.2,0.2 respectively. The split is done in EDA.ipynb file train-id.txt, eval-id.txt, test-id.txt and the files are stored accordingly.
-The script for training the G-Bert model is provided in run_alternative.sh bash script. The script basically executes the the python file run_pretraining.py to pretrain the G-Bert model on EHR Dataset. Then it executes the G-Bert prediction on this pre-trained model. The script alternates the pre-training with 5 epochs and fine-tuning procedure with 5 epochs for 15 times to stabilize the training procedure.
-For our project, we used the same procedure of executing pre-training with and without graphs and with and without pre-training.
-We also executed the script after changing the GAT model to GCN and GTN to test our ablations.
+The dataset was already split into training, validation and testing set in ratio of 0.6,0.2,0.2 respectively. The split is done in EDA.ipynb file train-id.txt, eval-id.txt, test-id.txt and the files are stored accordingly.
+The script for training the G-Bert model is provided in run_alternative.sh bash script. The script executes the the python file run_pretraining.py to pretrain the G-Bert model on EHR Dataset. Then it executes the G-Bert prediction on this pre-trained model. The script alternates the pre-training with 5 epochs and fine-tuning procedure with 5 epochs for 15 times to stabilize the training procedure.
+For our project, we used the same procedure of executing pre-training with and without graphs and with and without pre-training on EHR Dataset.
+We also executed the script after changing the Graph model from GAT to GCN(Graph Convolution Network) and GTN(Graph Transform Network) to test our ablations.
 
 ## 3. Evaluation code 
 
@@ -57,8 +57,9 @@ For GCNConv: python run_gbert.py --model_name GBert-predict-qGCN --use_pretrain 
 The pre-trained models based on GTN and GCN are placed in the GitHub repository.
 
 **To test our feasibility study approach:**
-1. Execute the Jupyter Notebook: GGPT2.ipynb. The pre-trained GPT2 model is a part of this GitHub repository.
+1. After installing the requirements, execute the Jupyter Notebook: **GGPT2.ipynb**. The pre-trained GPT2 model is a part of this GitHub repository.
 
+Please Note: Information on other ablations can be found in the paper
 ## 4. Pre-training and pre-trained models:
 
 In the run_pretraining.py, BERT model is pre-trained on the EHRDataset (both single-visit EHR sequences and multi-visit EHR sequences). 
@@ -71,6 +72,11 @@ To prove the claims and ablations in the original paper and to test our ablation
 We started with using local CPU based machines(laptops) and later switched to Azure GPU VM: - 1 x NVIDIA Tesla K80: Standard_NC6 (6 cores, 56 GB RAM, 380 GB disk).
 
 ## Baselines:
+To prove the claims in the paper:
+1. G-Bert performs better with graphs and pre-training 
+2. G-Bert performs better than GAMENet and RETAIN.
+
+we ran the following baselines:
 
 |    Model        |    F1 score   |    PR AUC     |  Jaccard Score |
 |-----------------|-------------- |---------------|----------------|
@@ -94,7 +100,7 @@ We attempted the below ablations:
 |Attention heads (4->8)|0.5245|0.6201|0.3644|
 |GATConv to GCNConv|0.5438|0.6296|0.3824|
 |GATConv to GTNLayer Attn heads = 4|0.6063|0.6896|0.4463|
-|GATConv to GTNLayer Attn heads = 6|0.6117|0.6977|0.4534|
+|GATConv to GTNLayer Attn heads = 6|0.6121|0.6967|0.4534|
 |Leaky_relu->sigmoid|0.5125|0.5464|0.3533|
 |Softmax->Sigmoid|0.4808|0.5810|0.3253|
 |Leaky_relu->tanh(Mish)|0.5904|0.6722|0.4298|
