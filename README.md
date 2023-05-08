@@ -91,7 +91,7 @@ we ran the following baselines:
    		
 
 ## Ablations: 
-We attempted the below ablations:
+We attempted the below ablations and after changing the GATConv to GTNConv, the PR Accuracy was better than the original G-Bert. 
   
 |    Model        |    F1 score   |    PR AUC     |  Jaccard Score |
 |-----------------|-------------- |---------------|----------------|
