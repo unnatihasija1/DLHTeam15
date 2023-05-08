@@ -101,7 +101,7 @@ We attempted the below ablations and after changing the GATConv to GTNConv, the 
 |Attention heads (4->8)|0.5245|0.6201|0.3245|
 |GATConv to GCNConv|0.4809|0.6078|0.3824|
 |GATConv to GTNLayer Attn heads = 4|0.6063|0.6896|0.4463|
-|**GATConv to GTNLayer Attn heads = 6**|**0.6121**|**0.6967**|**0.4524**|
+|**GATConv to GTNLayer Attn heads = 6**|0.6121|**0.6967**|0.4524|
 |Leaky_relu->sigmoid|0.5125|0.5464|0.3533|
 |Softmax->Sigmoid|0.4808|0.5810|0.3253|
 |Leaky_relu->tanh(Mish)|0.5904|0.6722|0.4298|
