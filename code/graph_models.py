@@ -1,4 +1,3 @@
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -31,21 +30,17 @@ class OntologyEmbedding(nn.Module):
 
         # construct model
         assert in_channels == heads * out_channels
-        
-        # self.g = GATConv(in_channels=in_channels,
-                        # out_channels=out_channels,
-                        # heads=heads)
-                         
-        #self.g = GCNLayer(in_channels=in_channels,
+        #self.g = GATConv(in_channels=in_channels,
         #                 out_channels=out_channels,
         #                 heads=heads)
-        self.g = GCNConv(in_channels=in_channels,
-                         out_channels=out_channels,
-                         heads=heads)
+        #self.g = GCNConv(in_channels=in_channels,
+        #                 out_channels=out_channels,
+        #                 heads=heads)
                          
-        #self.g = GTNConv(in_channels=in_channels,
-        #                out_channels=out_channels,
-        #                heads=heads, dropout=0.5)                
+        self.g = GTNConv(in_channels=in_channels,
+                        out_channels=out_channels,
+                        heads=heads, dropout=0.1) 
+
         # tree embedding
         num_nodes = len(graph_voc.word2idx)
         self.embedding = nn.Parameter(torch.Tensor(num_nodes, in_channels))
@@ -94,9 +89,8 @@ class MessagePassing(nn.Module):
     create_gnn.html>`__ for the accompanying tutorial.
 
     """
-
-    def __init__(self, aggr='add'):
-    #def __init__(self, aggr='max'):
+    def __init__(self, aggr='mean'):
+    #def __init__(self, aggr='add'):
         super(MessagePassing, self).__init__()
 
         self.message_args = inspect.getargspec(self.message)[0][1:]
@@ -151,13 +145,9 @@ class MessagePassing(nn.Module):
         which was initially passed to :meth:`propagate`."""
 
         return aggr_out
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-from torch.nn.parameter import Parameter
 
 class GTNConv(MessagePassing):
-    def __init__(self, in_channels, out_channels, heads=1, concat=True, negative_slope=0.05, dropout=0.1, bias=True):
+    def __init__(self, in_channels, out_channels, heads=1, concat=True, negative_slope=0.05, dropout=0.2, bias=True):
         super(GTNConv, self).__init__(aggr='add')  # "Add" aggregation (step 3).
 
         self.in_channels = in_channels
@@ -229,149 +219,6 @@ class GTNConv(MessagePassing):
 
         return out
 
-
-# class GTNConv(MessagePassing):
- 
-    # def __init__(self,
-                 # in_channels,
-                 # out_channels,
-                 # heads=1,
-                 # concat=True,
-                 # negative_slope=0.2,
-                 # dropout=0,
-                 # bias=True):
-        # super(GTNConv, self).__init__()
-
-        # self.in_channels = in_channels
-        # self.out_channels = out_channels
-        # self.heads = heads
-        # self.concat = concat
-        # self.negative_slope = negative_slope
-        # self.dropout = dropout
-
-        # # self.weight = nn.Parameter(
-            # # torch.Tensor(in_channels, heads * out_channels))
-        # self.weight = nn.Parameter(torch.FloatTensor(in_channels, 4*out_channels))    
-        # self.att = nn.Parameter(torch.Tensor(1, heads, 2 * out_channels))
-
-        # if bias and concat:
-            # self.bias = nn.Parameter(torch.Tensor(heads * out_channels))
-        # elif bias and not concat:
-            # self.bias = nn.Parameter(torch.Tensor(out_channels))
-        # else:
-            # self.register_parameter('bias', None)
-
-        # self.reset_parameters()
-
-    # def reset_parameters(self):
-        # glorot(self.weight)
-        # glorot(self.att)
-        # zeros(self.bias)
-
-    # def forward(self, x, edge_index):
-        # """"""
-        # # Compute attention coefficients.
-        # #alpha = torch.einsum('bij,ajk,bik->bai', x.unsqueeze(1), self.att, x.unsqueeze(1))
-        # #torch.autograd.set_detect_anomaly(True)
-        # #alpha = torch.einsum('ni,kij,nj->nk', x, self.att, x)
-        # print(self.att.size(), x.unsqueeze(1).size())
-        # #alpha = torch.einsum('ij,ajk,ik->aij', x, self.att, x)
-        # alpha = torch.einsum('ni,kij,nj->nk', x, self.att, x.unsqueeze(0))
-        # alpha = alpha.masked_fill(adj == 0, float('-inf'))
-        # alpha = F.softmax(alpha, dim=-1)
-        # alpha = F.dropout(alpha, p=self.dropout)
-
-        # x = torch.matmul(alpha.unsqueeze(1), x.unsqueeze(1))
-        # x = torch.matmul(adj, x).squeeze(1).squeeze(1)
-
-        # # Apply bias if needed.
-        # if self.bias is not None:
-            # x = x + self.bias
-
-        # return x
-        
-    # def message(self, x_j, alpha):
-        # return alpha.unsqueeze(-1) * x_j
-
-    # def update(self, aggr_out):
-        # return aggr_out
-# class GTNConv(nn.Module):
-    # def __init__(self, in_channels, out_channels, heads=1, dropout=0.5, bias=True):
-        # super(GTNConv, self).__init__()
-        # self.in_channels = in_channels
-        # self.out_channels = out_channels
-        # #self.ntypes = ntypes = 3
-        # #self.etypes = etypes = 3
-        # self.num_heads = heads
-        # self.dropout = dropout
-        # self.bias = bias
-        
-        # #self.weight = nn.ModuleList([nn.Linear(in_channels, out_channels) for _ in range(3)])
-        # self.weight = nn.Parameter(torch.FloatTensor(in_channels, 4*out_channels))
-        # self.att = Parameter(torch.Tensor(1, 4, 2*out_channels))
-        # nn.init.xavier_uniform_(self.att)
-        
-        # if bias:
-            # self.bias = Parameter(torch.Tensor(out_channels * heads))
-            # nn.init.zeros_(self.bias)
-        # else:
-            # self.register_parameter('bias', None)
-        
-        # self.dropout_layer = nn.Dropout(dropout)
-        
-    # def forward(self, x, edge_list):
-        # # x: node features (N, C_in)
-        # # edge_list: list of tuples (src_type, dst_type, etype, src, dst)
-        
-        # # Get number of nodes and edge types
-        # n_nodes = x.shape[0]
-        # #n_edge_types = len(self.etypes)
-        # n_edge_types = 3
-        
-        # # Separate node features by type
-        # ntypes = [1,2,3]
-        # etypes = [1,2,3]  
-        # node_feats = [x]
-        # for t in range(1, 3):
-            # node_feats.append(torch.zeros((n_nodes, self.in_channels), device=x.device))
-        # for t, feats in enumerate(node_feats):
-            # mask = edge_list[:, 0] == t
-            # if mask.sum() > 0:
-                # node_feats[t] = F.relu(self.weight[t](feats))
-        
-        # # Compute attention weights
-        # alpha = torch.zeros((n_edge_types, self.num_heads, edge_list.shape[0]), device=x.device)
-        # for i, etype in enumerate(len(etypes)):
-            # src_type, dst_type, _ = etype
-            # src_feats = node_feats[src_type][edge_list[:, 3]]
-            # dst_feats = node_feats[dst_type][edge_list[:, 4]]
-            # edge_feats = torch.cat([src_feats, dst_feats], dim=-1)
-            # alpha[i] = torch.einsum('ij,hdj->hdi', edge_feats, self.att)
-        # #alpha = F.softmax(alpha, dim=1)
-        # alpha = F.log_softmax(alpha, dim=1)
-        
-        
-        # # Compute weighted node features
-        # node_feats = torch.cat(node_feats, dim=0)
-        # out_feats = torch.zeros((n_nodes, self.num_heads * self.out_channels), device=x.device)
-        # for i, etype in enumerate(ntypes):
-            # src_type, dst_type, _ = etype
-            # alpha_i = alpha[i].transpose(0, 1) # (h, E)
-            # src_feats = node_feats[src_type][edge_list[:, 3]]
-            # dst_feats = node_feats[dst_type][edge_list[:, 4]]
-            # edge_feats = torch.cat([src_feats, dst_feats], dim=-1)
-            # out_feats += torch.einsum('hi,hij->hj', alpha_i, edge_feats)
-        
-        # # Apply bias and non-linearity
-        # if self.bias is not None:
-            # out_feats += self.bias
-        # out_feats = F.relu(out_feats)
-        
-        # # Apply dropout
-        # out_feats = self.dropout_layer(out_feats)
-        
-        # return out_feats
-
 class GCNConv(torch.nn.Module):
     def __init__(self, in_channels, out_channels, heads=1, bias=True):
         super(GCNConv, self).__init__()
@@ -393,8 +240,9 @@ class GCNConv(torch.nn.Module):
         
         num_nodes = x.shape[0]
         adj_matrix = np.zeros((num_nodes, num_nodes))
+        
         np.fill_diagonal(adj_matrix, 1)
-        adj_matrix[edge_index[0],edge_index[1]] = 1
+        adj_matrix[edge_index[0].cpu(),edge_index[1].cpu()] = 1
         adj_matrix = torch.FloatTensor(adj_matrix)
         #print(adj_matrix)
         
@@ -407,99 +255,15 @@ class GCNConv(torch.nn.Module):
         normalized_adj_matrix = torch.mm(torch.mm(d_sqrt_inv, adj_matrix), d_sqrt_inv)
         
         # Calculate output
+        device = normalized_adj_matrix.device
+        x = x.to(device)
+        self.weight = torch.nn.Parameter(torch.FloatTensor(self.weight.size()))
+        self.weight = self.weight.to(device)
         ret = torch.mm(normalized_adj_matrix, x).mm(self.weight)
+        #ret = torch.mm(normalized_adj_matrix, x).mm(self.weight)
         
         return ret
         
-# class GCNLayer(nn.Module):
-    # def __init__(self, in_channels, out_channels, heads=1, bias=True):
-        # super(GCNLayer, self).__init__()
-
-        # self.in_channels = in_channels
-        # self.out_channels = out_channels
-        # self.heads=heads
-
-        # self.weight = nn.Parameter(torch.Tensor(in_channels, heads * out_channels))
-
-        # if bias:
-            # self.bias = nn.Parameter(torch.Tensor(heads * out_channels))
-        # else:
-            # self.register_parameter('bias', None)
-
-        # self.att = nn.Parameter(torch.Tensor(1, heads, 2 * out_channels))
-        # self.reset_parameters()
-
-    # def reset_parameters(self):
-        # glorot(self.weight)
-        # glorot(self.att)
-        # zeros(self.bias)
-        
-    # def forward(self, adj, x):
-        # # Compute degree matrix
-        # deg = torch.sum(adj, dim=1)
-        # deg_sqrt_inv = torch.sqrt(1.0 / (deg + 1e-9))
-
-        # # Normalize adjacency matrix
-        # norm_adj = adj * deg_sqrt_inv.view(-1, 1) * deg_sqrt_inv.view(1, -1)
-
-        # # Compute output
-        # output = torch.mm(norm_adj, x)
-        # output = torch.mm(output, self.weight)
-        # output = output + self.bias
-        # output = F.relu(output)
-        # return output
-
-    # def forward(self, x, adj):
-        # """"""
-        
-        # print(x.shape, self.weight.shape, adj.shape)
-        # support = torch.mm(x, self.weight)#.view(-1, self.heads, self.out_channels)
-        # deg_adj = torch.sum(adj, dim=1, keepdim=True)
-        # deg = deg_adj[1]
-        # norm_adj = adj / deg_adj
-        # output = torch.mm(norm_adj, support)
-        # #output = x
-        # if self.bias is not None:
-            # output = output + self.bias
-
-        # output = nn.functional.relu(output)
-        
-        # return output
-
-
-# class GCNLayer(nn.Module):
-    # def __init__(self, in_channels, out_channels, bias=True):
-        # super(GCNLayer, self).__init__()
-        # self.weight = nn.Parameter(torch.FloatTensor(in_channels, 4 * out_channels))
-        # if bias:
-            # self.bias = nn.Parameter(torch.FloatTensor(4 * out_channels))
-        # else:
-            # self.bias = None
-        # self.att = nn.Parameter(torch.Tensor(1, 4, 2 * out_channels))
-        # self.reset_parameters()
-
-    # def reset_parameters(self):
-        # nn.init.xavier_uniform_(self.weight)
-        # if self.bias is not None:
-            # nn.init.zeros_(self.bias)
-
-    # def forward(self, adj, x):
-        # deg = torch.sum(adj, dim=1, keepdim=True)
-        # norm_adj = adj / deg
-        
-        # # Compute support and output
-        # #support = torch.mm(x.T, self.weight)
-        # output = torch.mm(adj, self.weight)
-        # #output = torch.mm(x, support)
-        # #output.Size()
-        # output = nn.functional.relu(output)
-        
-        # return output
-        # # support = torch.mm(x, self.weight)
-        # # output = torch.spmm(adj, support)
-        # # if self.bias is not None:
-            # # output += self.bias
-        # # return F.relu(output)
 class GATConv(MessagePassing):
     r"""The graph attentional operator from the `"Graph Attention Networks"
     <https://arxiv.org/abs/1710.10903>`_ paper
@@ -577,17 +341,13 @@ class GATConv(MessagePassing):
         edge_index = add_self_loops(edge_index, num_nodes=x.size(0))
         x = torch.mm(x, self.weight).view(-1, self.heads, self.out_channels)
         return self.propagate('add', edge_index, x=x, num_nodes=x.size(0))
-        #return self.propagate('max', edge_index, x=x, num_nodes=x.size(0))
 
-    
     def message(self, x_i, x_j, edge_index, num_nodes):
         # Compute attention coefficients.
         alpha = (torch.cat([x_i, x_j], dim=-1) * self.att).sum(dim=-1)
         alpha = F.leaky_relu(alpha, self.negative_slope)
-        #alpha = F.Mish(alpha, self.negative_slope)
-        #alpha = F.sigmoid(alpha) #, self.negative_slope)
+        #alpha = F.relu(alpha, self.negative_slope)
         alpha = softmax(alpha, edge_index[0], num_nodes)
-        #alpha = F.log_softmax(alpha, edge_index[0], num_nodes)
 
         alpha = F.dropout(alpha, p=self.dropout)
 
@@ -597,7 +357,8 @@ class GATConv(MessagePassing):
         if self.concat is True:
             aggr_out = aggr_out.view(-1, self.heads * self.out_channels)
         else:
-            aggr_out = aggr_out.sum(dim=1)
+            #aggr_out = aggr_out.sum(dim=1)
+            aggr_out = aggr_out.mean(dim=1)
 
         if self.bias is not None:
             aggr_out = aggr_out + self.bias
@@ -608,7 +369,38 @@ class GATConv(MessagePassing):
                                              self.in_channels,
                                              self.out_channels, self.heads)
 
+class GCNLayer(nn.Module):
+    def __init__(self, in_channels, out_channels, heads, dropout, bias=True):
+        super(GCNLayer, self).__init__()
+        # self.weight = nn.Parameter(torch.FloatTensor(in_channels, out_channels))
+        # if bias:
+            # self.bias = nn.Parameter(torch.FloatTensor(out_channels))
+        # else:
+            # self.bias = None
+        # self.reset_parameters()
+        
+        self.weight = nn.Parameter(
+            torch.Tensor(in_channels, heads*out_channels))
+        self.att = nn.Parameter(torch.Tensor(1, heads, 2 * out_channels))
 
+        if bias:
+            self.bias = nn.Parameter(torch.Tensor(heads * out_channels))
+        else:
+            self.register_parameter('bias', None)
+
+        self.reset_parameters()
+
+    def reset_parameters(self):
+        nn.init.xavier_uniform_(self.weight)
+        if self.bias is not None:
+            nn.init.zeros_(self.bias)
+
+    def forward(self, adj, x):
+        support = torch.mm(x, self.weight)
+        output = torch.spmm(adj, support)
+        if self.bias is not None:
+            output += self.bias
+        return F.relu(output)
 class ConcatEmbeddings(nn.Module):
     """Concat rx and dx ontology embedding for easy access
     """
@@ -627,8 +419,11 @@ class ConcatEmbeddings(nn.Module):
         self.init_params()
 
     def forward(self, input_ids):
-        emb = torch.cat(
-            [self.special_embedding, self.rx_embedding(), self.dx_embedding()], dim=0)
+        device = self.special_embedding.device
+        rx = self.rx_embedding().to(device)
+        dx = self.dx_embedding().to(device)
+        emb = torch.cat((self.special_embedding, rx, dx), dim=0)
+
         return emb[input_ids]
 
     def init_params(self):
