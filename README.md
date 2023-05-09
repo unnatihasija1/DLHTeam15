@@ -99,7 +99,7 @@ We attempted the below ablations and after changing the GATConv to GTNConv, the 
 |Aggr_out from sum to mean| 0.5710 |0.6554|0.4096|
 |Aggr_out from sum to max|0.5550|0.6318|0.3942|
 |Attention heads (4->8)|0.5245|0.6201|0.3245|
-|GATConv to GCNConv|0.4809|0.6078|0.3824|
+|GATConv to GCNConv|0.5429|0.6275|0.3823|
 |GATConv to GTNLayer Attn heads = 4|0.6063|0.6896|0.4463|
 |**GATConv to GTNLayer Attn heads = 6**|**0.6121**|**0.6967**|**0.4524**|
 |Leaky_relu->sigmoid|0.5125|0.5464|0.3533|
