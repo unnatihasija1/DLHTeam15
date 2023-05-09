@@ -33,13 +33,13 @@ class OntologyEmbedding(nn.Module):
         #self.g = GATConv(in_channels=in_channels,
         #                 out_channels=out_channels,
         #                 heads=heads)
-        #self.g = GCNConv(in_channels=in_channels,
-        #                 out_channels=out_channels,
-        #                 heads=heads)
+        self.g = GCNConv(in_channels=in_channels,
+                         out_channels=out_channels,
+                         heads=heads)
                          
-        self.g = GTNConv(in_channels=in_channels,
-                        out_channels=out_channels,
-                        heads=heads, dropout=0.1) 
+        #self.g = GTNConv(in_channels=in_channels,
+        #                out_channels=out_channels,
+        #                heads=heads, dropout=0.1) 
 
         # tree embedding
         num_nodes = len(graph_voc.word2idx)
@@ -235,14 +235,12 @@ class GCNConv(torch.nn.Module):
 
         self.att = nn.Parameter(torch.Tensor(1, heads, 2 * out_channels))
         #self.reset_parameters()
-    
     def forward(self, x, edge_index):
         
         num_nodes = x.shape[0]
         adj_matrix = np.zeros((num_nodes, num_nodes))
-        
         np.fill_diagonal(adj_matrix, 1)
-        adj_matrix[edge_index[0].cpu(),edge_index[1].cpu()] = 1
+        adj_matrix[edge_index[0],edge_index[1]] = 1
         adj_matrix = torch.FloatTensor(adj_matrix)
         #print(adj_matrix)
         
@@ -255,14 +253,36 @@ class GCNConv(torch.nn.Module):
         normalized_adj_matrix = torch.mm(torch.mm(d_sqrt_inv, adj_matrix), d_sqrt_inv)
         
         # Calculate output
-        device = normalized_adj_matrix.device
-        x = x.to(device)
-        self.weight = torch.nn.Parameter(torch.FloatTensor(self.weight.size()))
-        self.weight = self.weight.to(device)
         ret = torch.mm(normalized_adj_matrix, x).mm(self.weight)
-        #ret = torch.mm(normalized_adj_matrix, x).mm(self.weight)
         
         return ret
+    # def forward(self, x, edge_index):
+        
+        # num_nodes = x.shape[0]
+        # adj_matrix = np.zeros((num_nodes, num_nodes))
+        
+        # np.fill_diagonal(adj_matrix, 1)
+        # adj_matrix[edge_index[0].cpu(),edge_index[1].cpu()] = 1
+        # adj_matrix = torch.FloatTensor(adj_matrix)
+        # #print(adj_matrix)
+        
+        # degree = torch.sum(adj_matrix, dim=1)
+        # degree_matrix = torch.diag(degree)
+        
+        # #print("degree matrix", degree_matrix)
+        
+        # d_sqrt_inv = torch.sqrt(torch.inverse(degree_matrix))
+        # normalized_adj_matrix = torch.mm(torch.mm(d_sqrt_inv, adj_matrix), d_sqrt_inv)
+        
+        # # Calculate output
+        # device = normalized_adj_matrix.device
+        # x = x.to(device)
+        # self.weight = torch.nn.Parameter(torch.FloatTensor(self.weight.size()))
+        # self.weight = self.weight.to(device)
+        # ret = torch.mm(normalized_adj_matrix, x).mm(self.weight)
+        # #ret = torch.mm(normalized_adj_matrix, x).mm(self.weight)
+        
+        # return ret
         
 class GATConv(MessagePassing):
     r"""The graph attentional operator from the `"Graph Attention Networks"
